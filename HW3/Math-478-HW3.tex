@@ -282,7 +282,7 @@ Given IVP: $\frac{dy}{dt} = t^2(y+2), y(0)=1$ with domain $D=\{(t,y) | 0\le t\le
 	&= y(t_{n+1}) - y(t_n) - hf\pa{t_n+\frac{1}{2}h, y\pa{t_n+\frac{1}{2}h}} + O(h^3)\\
 	&= \pa{y(t_n) + hy'(t_n) + \frac{h^2}{2}y''(t_n)} - y(t_n) - h\pa{y'(t_n) + \frac{1}{2}hy''(t_n) + O(h^2)} + O(h^3) = O(h^3)
 	\end{align*}
-	Subtract the trapezoidal rule from the exact solution,
+	Subtract the implicit midpoint rule from the exact solution,
 	\begin{align*}
 		e_{n+1} &= y(t_{n+1}) - y_{n+1}\\
 		&= y(t_n) + hf\pa{t_n + \frac{1}{2}h, \frac{1}{2}(y(t_n) + y(t_{n+1}))} + O(h^3) - \pa{y_n + hf\pa{t_n + \frac{1}{2}h, \frac{1}{2}(y_n + y_{n+1})}}\\
