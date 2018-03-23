@@ -1,0 +1,113 @@
+\documentclass[10pt]{report}
+
+\usepackage{subcaption} % for subfigures
+\usepackage{amsthm} % for QED
+%\usepackage{algpseudocode} % for pseudo-code
+\usepackage{mathtools} % for delimiter
+
+\usepackage{listings} % for code
+\lstset
+{
+	language=Matlab,
+	frame=single,
+	basicstyle=\footnotesize,
+	captionpos=b,
+	numbers=left,
+	stepnumber=1,
+	showstringspaces=false,
+	tabsize=4,
+	breaklines=true,
+	breakatwhitespace=false,
+}
+
+\usepackage{siunitx} % for scientific notation
+% for `e' in scientific notation
+\sisetup{output-exponent-marker=\ensuremath{\mathrm{e}}}
+
+\usepackage{float} % for figure [H]
+\usepackage{booktabs} % for tabular
+\usepackage{caption} % for \caption*
+\usepackage[export]{adjustbox} % for valign=t
+\usepackage{array} % for column type m
+\usepackage{verbatim}
+\usepackage{graphicx}
+\graphicspath{ {imgs/} }
+\usepackage{fancyhdr}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+%%%%%% Pagination
+\setlength{\topmargin}{-.3 in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textheight}{9.in}
+\setlength{\textwidth}{6.5in}
+
+%Title page
+\newcommand{\hwTitle}{Homework \#4}
+\newcommand{\hwCourse}{Numerical Differential Equations/Computational Mathematics II}
+\newcommand{\hmwkClassInstructor}{Professor Shuwang Li}
+
+\title{
+	\vspace{2in}
+	\textmd{\textbf{\hwCourse\\\hwTitle}}\\
+	\vspace{0.3in}\large{\textit{\hmwkClassInstructor}}
+	\vspace{3in}
+}
+
+%\title{Homework 1}
+\author{\textbf{Zhihao Ai}}
+\date{}
+
+%Header setting. 
+\pagestyle{fancy}
+\fancyhead[L]{Zhihao Ai}
+\fancyhead[C]{Math 478}
+\fancyhead[R]{Homework 4}
+%%%%%%
+
+%Global setting.
+%\everymath{\displaystyle}
+\setlength\parindent{0pt}
+
+%Custom general commands.
+\newcommand{\ds}{\displaystyle}
+\newcommand{\ts}{\textstyle}
+\newcommand{\f}[1] {f\left(#1\right)}
+\newcommand{\eva}[2] {\left. #1 \right|_{#2}}
+\newcommand{\dintt}[4] {\int_{#1}^{#2} #3 d#4}
+
+\newcolumntype{N}{ >$ c <$}
+\newcolumntype{M}[1]{>{\centering\arraybackslash $}m{#1}<{$}}
+
+\newcommand{\abs}[1] {\left| #1 \right|}
+
+\DeclarePairedDelimiter\autoparen{(}{)}
+\newcommand{\pa}[1]{\autoparen*{#1}}
+\DeclarePairedDelimiter\autodvert{\Vert}{\Vert}
+\newcommand{\norm}[1]{\autodvert*{#1}}
+
+\begin{document}
+
+\maketitle
+
+\section*{Question 1}
+% Fundamental concepts on multistep methods.
+\begin{enumerate}
+	\item 
+	(Problem 2.1) Derive explicitly the three-step and four-step Adams-Moulton methods and the three-step Adams-Bashforth method.
+	
+	\item 
+	(Problem 2.4) Determine the order of the three-step method
+	\[
+	y_{n+3} - y_n = h\left[\frac{3}{8}f(t_{n+3}, y_{n+3} + \frac{9}{8}f(t_{n+2}, y_{n+2} + \frac{9}{8}f(t_{n+1}, y_{n+1}) + \frac{3}{8}f(t_{n}, y_{n}\right]
+	\]
+	the \textit{three-eighths} scheme. Is it convergent?
+	
+	\item 
+	(Problem 2.8) Find the explicit form of the BDF for $s = 4$.
+\end{enumerate}
+
+\end{document}
+
+
