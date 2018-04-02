@@ -97,10 +97,69 @@
 	\item 
 	(Problem 2.1) Derive explicitly the three-step and four-step Adams-Moulton methods and the three-step Adams-Bashforth method.
 	
+	Three-step Adams-Moulton:
+	\begin{align*}
+		b_3 &= \dintt{t_{n+2}}{t_{n+3}}{
+			\frac{ (t-t_{n})(t-t_{n+1})(t-t_{n+2}) }{ (3h)(2h)(h) }}{t}
+		= \frac{3}{8}h\\
+		b_2 &= \dintt{t_{n+2}}{t_{n+3}}{
+			\frac{ (t-t_{n})(t-t_{n+1})(t-t_{n+3}) }{ (2h)(h)(-h) }}{t}
+		= \frac{19}{24}h\\
+		b_1 &= \dintt{t_{n+2}}{t_{n+3}}{
+			\frac{ (t-t_{n})(t-t_{n+2})(t-t_{n+3}) }{ (h)(-h)(-2h) }}{t}
+		= -\frac{5}{24}h\\
+		b_0 &= \dintt{t_{n+2}}{t_{n+3}}{
+			\frac{ (t-t_{n})(t-t_{n+1})(t-t_{n+2}) }{ (3h)(2h)(h) }}{t}
+		= \frac{1}{24}h
+	\end{align*}
+	Therefore, the three-step Adams-Moulton method is
+	\[
+	y_{n+3} = y_{n+2} + h \pa{\frac{3}{8} f(t_{n+3},y_{n+3}) + \frac{19}{24} f(t_{n+2},y_{n+2}) - \frac{5}{24} f(t_{n+1},y_{n+1}) + \frac{1}{24} f(t_n,y_n)}
+	\]
+	Four-step Adams-Moulton:
+	\begin{align*}
+	b_4 &= \dintt{t_{n+3}}{t_{n+4}}{
+		\frac{ (t-t_{n})(t-t_{n+1})(t-t_{n+2})(t-t_{n+3}) }{ (4h)(3h)(2h)(h) }}{t}
+	= \frac{251}{720}h\\
+	b_3 &= \dintt{t_{n+3}}{t_{n+4}}{
+		\frac{ (t-t_{n})(t-t_{n+1})(t-t_{n+2})(t-t_{n+4}) }{ (3h)(2h)(h)(-h) }}{t}
+	= \frac{323}{360}h\\
+	b_2 &= \dintt{t_{n+3}}{t_{n+4}}{
+		\frac{ (t-t_{n})(t-t_{n+1})(t-t_{n+3})(t-t_{n+4}) }{ (2h)(h)(-h)(-2h) }}{t}
+	= -\frac{11}{30}h\\
+	b_1 &= \dintt{t_{n+3}}{t_{n+4}}{
+		\frac{ (t-t_{n})(t-t_{n+2})(t-t_{n+3})(t-t_{n+4}) }{ (h)(-h)(-2h)(-3h) }}{t}
+	= \frac{53}{360}h\\
+	b_2 &= \dintt{t_{n+3}}{t_{n+4}}{
+		\frac{ (t-t_{n+1})(t-t_{n+2})(t-t_{n+3})(t-t_{n+4}) }{ (-h)(-2h)(-3h)(-4h) }}{t}
+	= -\frac{19}{720}h
+	\end{align*}
+	Therefore, the four-step Adams-Moulton method is
+	\begin{multline*}
+	y_{n+4} = y_{n+3} + h \left( \frac{251}{720} f(t_{n+4},y_{n+4}) + \frac{323}{360} f(t_{n+3},y_{n+3}) - \frac{11}{30} f(t_{n+2},y_{n+2}) \right.\\
+	\left. + \frac{53}{360} f(t_{n+1},y_{n+1}) - \frac{19}{720} f(t_n,y_n) \right)
+	\end{multline*}
+	Three-step Adams-Bashforth:
+	\begin{align*}
+	b_2 &= \dintt{t_{n+2}}{t_{n+3}}{
+		\frac{ (t-t_{n})(t-t_{n+1}) }{ (2h)(h) }}{t}
+	= \frac{23}{12}h\\
+	b_1 &= \dintt{t_{n+2}}{t_{n+3}}{
+		\frac{ (t-t_{n})(t-t_{n+2}) }{ (h)(-h) }}{t}
+	= -\frac{4}{3}h\\
+	b_0 &= \dintt{t_{n+2}}{t_{n+3}}{
+		\frac{ (t-t_{n})(t-t_{n+1}) }{ (2h)(h) }}{t}
+	= \frac{5}{12}h
+	\end{align*}
+	Therefore, the three-step Adams-Moulton method is
+	\[
+	y_{n+3} = y_{n+2} + h \pa{\frac{23}{12} f(t_{n+2},y_{n+2}) - \frac{4}{3} f(t_{n+1},y_{n+1}) + \frac{5}{12} f(t_n,y_n)}
+	\]
+	
 	\item 
 	(Problem 2.4) Determine the order of the three-step method
 	\[
-	y_{n+3} - y_n = h\left[\frac{3}{8}f(t_{n+3}, y_{n+3} + \frac{9}{8}f(t_{n+2}, y_{n+2} + \frac{9}{8}f(t_{n+1}, y_{n+1}) + \frac{3}{8}f(t_{n}, y_{n}\right]
+	y_{n+3} - y_n = h\left[\frac{3}{8}f(t_{n+3}, y_{n+3})+ \frac{9}{8}f(t_{n+2}, y_{n+2}) + \frac{9}{8}f(t_{n+1}, y_{n+1}) + \frac{3}{8}f(t_{n}, y_{n})\right]
 	\]
 	the \textit{three-eighths} scheme. Is it convergent?
 	
