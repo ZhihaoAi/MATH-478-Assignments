@@ -163,8 +163,30 @@
 	\]
 	the \textit{three-eighths} scheme. Is it convergent?
 	
+	The method can be characterized in terms of the polynomials
+	\[
+	\rho(w) = w^3 - 1, \sigma(w) = \frac{3}{8}w^3 + \frac{9}{8}w^2 + \frac{9}{8}w + \frac{3}{8} = \frac{3}{8}(w+1)^3
+	\]
+	Let $w = \xi + 1$,
+	\begin{align*}
+	\rho(w) - \sigma(w) \ln{w}
+	&=(\xi + 1)^3 - 1 - \frac{3}{8}(\xi+2)^3 \ln(\xi + 1) \\
+	&=(\xi + 1)^3 - 1 - \frac{3}{8}(\xi+2)^3 (\xi - \frac{\xi^2}{2} + \frac{\xi^3}{3} - \frac{\xi^4}{4} + O(h^5))\\
+	&=\frac{9}{16}\xi^5 + \frac{7}{16}\xi^6 + \frac{3}{32}\xi^7 + O(\xi^5)\\
+	&=\frac{9}{16}(w-1)^5 + \frac{7}{16}(w-1)^6 + \frac{3}{32}(w-1)^7 + O((w-1)^5)
+	\end{align*}
+	Thus, the order of the \textit{three-eighths} scheme is 4. Since the roots of $\rho(w) = w^3 - 1$ all reside in the closed complex unit disc and are all simple roots, it satisfies the root condition. Therefore, it's convergent.
+	
 	\item 
 	(Problem 2.8) Find the explicit form of the BDF for $s = 4$.
+	\begin{align*}
+	\beta &= \pa{\sum_{m=1}^{4} \frac{1}{m}}^{-1} = \frac{12}{25}\\
+	\rho(w) &= \beta \sum_{m=1}^{4} \frac{1}{m} w^{4-m}(w-1)^m = w^4 - \frac{48}{25}w^3 + \frac{36}{25}w^2 - \frac{16}{25}w + \frac{3}{25}
+	\end{align*}
+	Therefore, the BDF for $s = 4$ is
+	\[
+	y_{n+4} - \frac{48}{25}y_{n+3} + \frac{36}{25}y_{n+2} - \frac{16}{25}y_{n+1} + \frac{3}{25}y_{n} = \frac{12}{25}hf(t_{n+4}, y_{n+4})
+	\]
 \end{enumerate}
 
 \end{document}
