@@ -1,0 +1,184 @@
+\documentclass[10pt]{report}
+
+\usepackage{subcaption} % for subfigures
+\usepackage{amsthm} % for QED
+%\usepackage{algpseudocode} % for pseudo-code
+\usepackage{mathtools} % for delimiter
+
+\usepackage{listings} % for code
+\lstset
+{
+	language=Matlab,
+	frame=single,
+	basicstyle=\footnotesize,
+	captionpos=b,
+	numbers=left,
+	stepnumber=1,
+	showstringspaces=false,
+	tabsize=4,
+	breaklines=true,
+	breakatwhitespace=false,
+}
+
+\usepackage{siunitx} % for scientific notation
+% for `e' in scientific notation
+\sisetup{output-exponent-marker=\ensuremath{\mathrm{e}}}
+
+\usepackage{float} % for figure [H]
+\usepackage{booktabs} % for tabular
+\usepackage{caption} % for \caption*
+\usepackage[export]{adjustbox} % for valign=t
+\usepackage{array} % for column type m
+\usepackage{verbatim}
+\usepackage{graphicx}
+\graphicspath{ {imgs/} }
+\usepackage{fancyhdr}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+%%%%%% Pagination
+\setlength{\topmargin}{-.3 in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textheight}{9.in}
+\setlength{\textwidth}{6.5in}
+
+%Title page
+\newcommand{\hwTitle}{Homework \#5}
+\newcommand{\hwCourse}{Numerical Differential Equations/Computational Mathematics II}
+\newcommand{\hmwkClassInstructor}{Professor Shuwang Li}
+
+\title{
+	\vspace{2in}
+	\textmd{\textbf{\hwCourse\\\hwTitle}}\\
+	\vspace{0.3in}\large{\textit{\hmwkClassInstructor}}
+	\vspace{3in}
+}
+
+%\title{Homework 1}
+\author{\textbf{Zhihao Ai}}
+\date{}
+
+%Header setting. 
+\pagestyle{fancy}
+\fancyhead[L]{Zhihao Ai}
+\fancyhead[C]{Math 478}
+\fancyhead[R]{Homework 5}
+%%%%%%
+
+%Global setting.
+%\everymath{\displaystyle}
+\setlength\parindent{0pt}
+
+%Custom general commands.
+\newcommand{\ds}{\displaystyle}
+\newcommand{\ts}{\textstyle}
+\newcommand{\f}[1] {f\left(#1\right)}
+\newcommand{\eva}[2] {\left. #1 \right|_{#2}}
+\newcommand{\dintt}[4] {\int_{#1}^{#2} #3 d#4}
+
+\newcolumntype{N}{ >$ c <$}
+\newcolumntype{M}[1]{>{\centering\arraybackslash $}m{#1}<{$}}
+
+\newcommand{\abs}[1] {\left| #1 \right|}
+
+\DeclarePairedDelimiter\autoparen{(}{)}
+\newcommand{\pa}[1]{\autoparen*{#1}}
+\DeclarePairedDelimiter\autodvert{\Vert}{\Vert}
+\newcommand{\norm}[1]{\autodvert*{#1}}
+
+\begin{document}
+
+\maketitle
+
+\section*{Question 1}
+% Fundamental concepts on Runge-Kutta methods.
+\begin{enumerate}
+	\item 
+	(Problem 3.2) Let us define
+	\[
+	T_n(\cos{\theta}) := \cos{n\theta},\quad n = 0,1,2,\dots, \quad -\pi\le \theta\le \pi.
+	\]
+	\begin{enumerate}
+		\item 
+		Show that each $T_n$ is a polynomial of degree $n$ and that the $T_n$ satisfy the three–term recurrence relation
+		\[
+		T_{n+1}(t) = 2tT_n(t) - T_{n-1}(t),\quad n=1,2,\dots
+		\]
+		
+		\item 
+		Prove that $T_n$ is an $n$th orthogonal polynomial with respect to the weight function $w(t)=(1-t)^{-1/2}, -1<t<1$.
+		
+		\item 
+		Find the explicit values of the zeros of $T_n$, thereby verifying the statement of Lemma 3.2, namely that all the zeros of an orthogonal polynomial reside in the open support of the weight function.
+		
+		\item 
+		Find $b_1, b_2, c_1, c_2$ such that the order of the quadrature
+		\[
+		\dintt{-1}{1}{f(\tau) \frac{1}{\sqrt{1-\tau^2}}}{\tau} \approx b_1 f(c_1) + b_2 f(c_2)
+		\]
+		is four. 
+	\end{enumerate}
+
+	\item 
+	(Problem 3.4) Restricting your attention to scalar autonomous equations $y' = f(y)$, prove that the ERK method with tableau
+	\[
+	\renewcommand{\arraystretch}{1.2}
+	\begin{array}{c|cccc}
+		0 &&&&\\
+		\frac{1}{2} & \frac{1}{2} &&&\\
+		\frac{1}{2} & 0 & \frac{1}{2} &&\\
+		1 & 0 & 0 & 1 &\\ \hline
+		& \frac{1}{6} & \frac{1}{3} & \frac{1}{3} & \frac{1}{6}
+	\end{array}
+	\]
+	is of order 4.
+	
+	\item 
+	(Problem 3.7) Write the theta method, (1.13), as a Runge-Kutta method.
+\end{enumerate}
+
+\section*{Question 2}
+% Fundamental concepts on Implicit Runge-Kutta methods.
+\begin{enumerate}
+	\item 
+	(Problem 3.8) Derive the three-stage Runge-Kutta method that corresponds to the collocation points $c_1 = \frac{1}{4}, c_2 = \frac{1}{2}, c_3 = \frac{3}{4}$ and determine its order.
+\end{enumerate}
+
+\section*{Question 3}
+% Fundamental concepts on stiffness.
+\begin{enumerate}
+	\item 
+	(Problem 4.4) Determine all values of $\theta$ such that the theta method (1.13) is A-stable.
+	
+	\item 
+	(Problem 4.8) Determine the order of the two-step method
+	\[
+	y_{n+2} - y_n = \frac{2}{3}h[f(t_{n+2},y_{n+2}) + f(t_{n+1},y_{n+1}) + f(t_{n},y_{n})],\ n=0,1,\dots
+	\]
+	Is it A-stable?
+\end{enumerate}
+
+\section*{Computer Assignment}
+\begin{enumerate}
+	\item 
+	Implement Adam-Bashforth and 2nd order backwards difference formula (BD2) methods using Matlab. You have to write your own routines. Consider IVP: $dy/dt = -100(y(t) - \cos(t)) - \sin(t), y(0) = 1$. Note that the analytical solution is $y(t) = \cos(t)$. Consider $t\in [0, 1]$. Please approximate values of $y(1) = \cos(1)$ using different step size $h = 1/n$, for $n = 5, 10, 20, 50, 100, 200, 500$. Table your results using 3 columns: with time step $h$ as the 1st column, $u_{AB}(1)$ as the 2nd column, and $u_{BD2}(1)$ as the 3rd column. Comment what you get and understand why.
+	
+	\item 
+	The stability regions we discussed in class are very important for stiff problems. To find stability regions, we first need a stability polynomial, for example, the stability polynomial for RK4 is $\phi(z) = 1 + z + \frac{z^2}{2} + \frac{z^3}{6} + \frac{z^4}{24}$ for the model problem, where $z=h\lambda$. So for each $z$, $\phi(z)$ is a complex number. The boundary of the stability region is a set of values that $z$ can take such that $\phi(z)$ is on the unit circle, i.e. $\phi(z) = e^{i\theta}$. So by varying the value of $\theta\in [0, 2\pi]$, we solve equation $\phi(z) = e^{i\theta}$. There will be 4 roots with closed form expression in theory for the RK4. However this is very tedious. An alternative is to use command \texttt{contourplot} in Matlab and the idea of level set method.
+	\begin{verbatim}
+		clear i;
+		i = complex(0, 1);
+		[x, y] = meshgrid(-6 : 0.01 : 6, -6 : 0.01 : 6);
+		z = complex(x, y);
+		phi = 1 + z + z.^2/2 + z.^3/6 + z.^4/24;
+		rg = abs(phi);
+		v=[1 1];
+		contour f (x, y, rg, v);
+	\end{verbatim}
+	Modify this piece of code to produce stability regions of single step explicit methods: Euler explicit, RK2, RK3, and RK4; and implicit methods: Euler implicit, trapezoidal rule. Multistep methods: AB2, AM2, and BD2. Just produce the plots for the model problem we discussed in class. Comment on what you get.
+\end{enumerate}
+
+\end{document}
+
+
