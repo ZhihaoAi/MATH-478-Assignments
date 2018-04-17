@@ -85,6 +85,7 @@
 \DeclarePairedDelimiter\autoparen{(}{)}
 \newcommand{\pa}[1]{\autoparen*{#1}}
 \DeclarePairedDelimiter\autodvert{\Vert}{\Vert}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
 \newcommand{\norm}[1]{\autodvert*{#1}}
 
 \begin{document}
@@ -105,12 +106,41 @@
 		\[
 		T_{n+1}(t) = 2tT_n(t) - T_{n-1}(t),\quad n=1,2,\dots
 		\]
+		By de Moivre's formula, it can be proved that
+		\begin{align*}
+			T_n(\cos{\theta}) = \cos{n\theta}
+			&= \sum_{k=0}^{\floor{n/2}} \binom{n}{2k} (-1)^{2k} (\cos\theta)^{n-2k} (\sin\theta)^{2k}\\
+			&= \sum_{k=0}^{\floor{n/2}} \binom{n}{2k} (\cos\theta)^{n-2k} (\cos^2\theta - 1)^{k}
+		\end{align*}
+		As $n-2k + 2k = n$, $T_n$ is a polynomial of degree $n$. Let $t=\cos\theta$,
+		\begin{align*}
+			2tT_n(t) - T_{n-1}(t) 
+			&= 2\cos\theta \cdot T_n(\cos{n\theta}) - T_{n-1}(\cos\theta)\\
+			&= 2\cos\theta \cdot \cos{n\theta} - \cos{[(n-1)\theta]}\\
+			&= 2\cos\theta \cdot \cos{n\theta} - (\cos{n\theta}\cos\theta + \sin{n\theta}\sin\theta)\\
+			&= \cos{n\theta}\cos\theta - \sin{n\theta}\sin\theta\\
+			&= \cos{[(n+1)\theta]}\\
+			&= T_{n+1}(t)
+		\end{align*}
 		
 		\item 
-		Prove that $T_n$ is an $n$th orthogonal polynomial with respect to the weight function $w(t)=(1-t)^{-1/2}, -1<t<1$.
+		Prove that $T_n$ is an $n$th orthogonal polynomial with respect to the weight function $w(t)=(1-t^2)^{-1/2}, -1<t<1$.
+		
+		Since $t=\cos\theta$, $d\theta = d(\arccos{t}) = -\frac{1}{\sqrt{1-t^2}}dt$; let $m<n$,
+		\begin{align*}
+			\dintt{-1}{1}{T_n(t) T_m(t) w(t)}{t}
+			&= \dintt{-1}{1}{\cos(n\arccos{t}) \cos(m\arccos{t}) \frac{1}{\sqrt{1-t^2}}}{t}\\
+			&= -\dintt{\pi}{0}{\cos{n\theta} \cos{m\theta}}{\theta}\\
+			&= \frac{1}{2}\dintt{0}{\pi}{ \cos[(n+m)\theta] + \cos[(n-m)\theta]}{\theta}\\
+			&= \frac{1}{2} \left[\frac{\sin[(n+m)\theta]}{n+m} + \frac{\sin[(n-m)\theta]}{n-m} \right]_0^\pi\\
+			&= 0
+		\end{align*}
+		\qed
 		
 		\item 
 		Find the explicit values of the zeros of $T_n$, thereby verifying the statement of Lemma 3.2, namely that all the zeros of an orthogonal polynomial reside in the open support of the weight function.
+		
+		The roots $x_k = \cos\pa{\frac{2k-1}{2n}\pi}$ for $k=1,2,\dots,n$. Since $\abs{\cos\pa{\frac{2k-1}{2n}\pi}} \in (-1,1)$ and the roots are unique, the zeros of an orthogonal polynomial reside in the open support of the weight function.
 		
 		\item 
 		Find $b_1, b_2, c_1, c_2$ such that the order of the quadrature
@@ -118,6 +148,22 @@
 		\dintt{-1}{1}{f(\tau) \frac{1}{\sqrt{1-\tau^2}}}{\tau} \approx b_1 f(c_1) + b_2 f(c_2)
 		\]
 		is four. 
+		
+		Since it's Chebyshev-Gauss quadrature, $c_k = x_k = \cos\pa{\frac{2k-1}{2n}\pi}$. Because $n=2$, $c_1 = \cos \frac{1}{4}\pi = \frac{\sqrt{2}}{2}, c_2 = \cos \frac{3}{4}\pi = -\frac{\sqrt{2}}{2}$. Since the order is four, the quadrature is exact for every $f\in \mathbb{P}_3$. Consider $f_3(\tau) = \tau^3$ and $f_2(\tau) = \tau^2$,
+		\[
+		\begin{cases*}
+			\ds \frac{\pi}{2} = \dintt{-1}{1}{\frac{\tau
+					^2}{\sqrt{1-\tau^2}}}{\tau}
+				= b_1 \pa{\frac{\sqrt{2}}{2}}^2 + b_2 \pa{-\frac{\sqrt{2}}{2}}^2\\
+			\ds 0 = \dintt{-1}{1}{\frac{\tau
+					^3}{\sqrt{1-\tau^2}}}{\tau}
+			= b_1 \pa{\frac{\sqrt{2}}{2}}^3 + b_2 \pa{-\frac{\sqrt{2}}{2}}^3
+		\end{cases*}
+		\quad\Rightarrow\quad
+		b_1 = b_2 = \frac{\pi}{2}
+		\]
+		So $b_1 = b_2 = \frac{\pi}{2}, c_1 = \frac{\sqrt{2}}{2}, c_2 = -\frac{\sqrt{2}}{2}$.
+		
 	\end{enumerate}
 
 	\item 
@@ -180,5 +226,3 @@
 \end{enumerate}
 
 \end{document}
-
-
