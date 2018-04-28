@@ -1,0 +1,131 @@
+\documentclass[10pt]{report}
+
+\usepackage{subcaption} % for subfigures
+\usepackage{amsthm} % for QED
+%\usepackage{algpseudocode} % for pseudo-code
+\usepackage{mathtools} % for delimiter
+
+\usepackage{listings} % for code
+\lstset
+{
+	language=Matlab,
+	frame=single,
+	basicstyle=\footnotesize,
+	captionpos=b,
+	numbers=left,
+	stepnumber=1,
+	showstringspaces=false,
+	tabsize=4,
+	breaklines=true,
+	breakatwhitespace=false,
+}
+
+\usepackage{float} % for figure [H]
+\usepackage{booktabs} % for tabular
+\usepackage{caption} % for \caption*
+\usepackage[export]{adjustbox} % for valign=t
+\usepackage{array} % for column type m
+\usepackage{verbatim}
+\usepackage{graphicx}
+\graphicspath{ {imgs/} }
+\usepackage{fancyhdr}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+%%%%%% Pagination
+\setlength{\topmargin}{-.3 in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textheight}{9.in}
+\setlength{\textwidth}{6.5in}
+
+%Title page
+\newcommand{\hwTitle}{Homework \#5}
+\newcommand{\hwCourse}{Numerical Differential Equations/Computational Mathematics II}
+\newcommand{\hmwkClassInstructor}{Professor Shuwang Li}
+
+\title{
+	\vspace{2in}
+	\textmd{\textbf{\hwCourse\\\hwTitle}}\\
+	\vspace{0.3in}\large{\textit{\hmwkClassInstructor}}
+	\vspace{3in}
+}
+
+%\title{Homework 1}
+\author{\textbf{Zhihao Ai}}
+\date{}
+
+%Header setting. 
+\pagestyle{fancy}
+\fancyhead[L]{Zhihao Ai}
+\fancyhead[C]{Math 478}
+\fancyhead[R]{Homework 5}
+%%%%%%
+
+%Global setting.
+%\everymath{\displaystyle}
+\setlength\parindent{0pt}
+
+%Custom general commands.
+\newcommand{\ds}{\displaystyle}
+\newcommand{\ts}{\textstyle}
+\newcommand{\f}[1] {f\left(#1\right)}
+\newcommand{\eva}[2] {\left. #1 \right|_{#2}}
+\newcommand{\dintt}[4] {\int_{#1}^{#2} #3 d#4}
+
+\newcolumntype{N}{ >$ c <$}
+\newcolumntype{M}[1]{>{\centering\arraybackslash $}m{#1}<{$}}
+
+\newcommand{\abs}[1] {\left| #1 \right|}
+
+\DeclarePairedDelimiter\autoparen{(}{)}
+\newcommand{\pa}[1]{\autoparen*{#1}}
+\DeclarePairedDelimiter\autodvert{\Vert}{\Vert}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\newcommand{\norm}[1]{\autodvert*{#1}}
+
+\begin{document}
+
+\maketitle
+
+\section*{Question 1}
+% Fundamental concepts on error control..
+\begin{enumerate}
+	\item 
+	(Problem 6.1) Find the error constants for the Adams-Bashforth method (2.7) and for Adams-Moulton methods with $s = 2, 3$.
+	
+	\item 
+	(Problem 6.2) Prove that the error constant of the s-step backward differentiation formula is $-\beta/(s + 1)$, where $\beta$ was defined in (2.14).
+	
+	\item 
+	(Problem 6.4) Prove that the embedded RK pair
+	\[
+	\renewcommand{\arraystretch}{1.2}
+	\begin{array}{c|ccc}
+	0 &&&\\
+	\frac{1}{2} & \frac{1}{2} &&\\
+	1 & -1 & 2 &\\ \hline
+	& 0 & 1 &\\ \hline
+	& \frac{1}{6} & \frac{2}{3} & \frac{1}{6}
+	\end{array}
+	\]
+	combines a second-order and a third-order method.
+\end{enumerate}
+
+\section*{Computer Assignment}
+Consider a linear BVP: $y'' = y - x$ on $0<x<1$ and $y(0)=0, y(1)=0$. The exact solution to this problem is $y(x) = x + \frac{e}{e^2-1}(e^{-x}-e^x)$.
+\begin{enumerate}
+	\item 
+	Implement the linear shooting method to solve the problem using 10 subintervals. compute the numerical errors for each node point.
+	
+	\item 
+	Implement the finite difference method to solve the problem using 10 subintervals. compute the numerical errors for each node point.
+	
+	\item 
+	Comment on what you get in (a) and (b).
+	
+	\item 
+	Suppose we are solving a nonlinear BVP, what changes are you going to make to the routines you developed in (a) and (b)?
+\end{enumerate}
+
+\end{document}
