@@ -94,8 +94,64 @@
 	\item 
 	(Problem 6.1) Find the error constants for the Adams-Bashforth method (2.7) and for Adams-Moulton methods with $s = 2, 3$.
 	
+	3-step Adams-Bashforth: $y_{n+3} = y_{n+2} + h\pa{ \frac{23}{12}f(t_{n+2}, y_{n+2}) - \frac{4}{3}f(t_{n+1}, y_{n+1}) + \frac{5}{12}f(t_{n}, y_{n})}$
+	\[
+	\rho(w) = w^3 - w^2,\quad \sigma(w) = \frac{23}{12}w^2 - \frac{4}{3}w + \frac{5}{12}
+	\]
+	Let $x=w-1$,
+	\begin{align*}
+	\rho(w) - \sigma(w) \ln{w}
+	&= x(x+1)^2 - \pa{\frac{23}{12}x^2 + \frac{5}{2}x + 1} \pa{x-\frac{1}{2}x^2 + \frac{1}{3}x^3 + \cdots}\\
+	&= \frac{3}{8}x^4 + O(x^5)
+	\end{align*}
+	Therefore the error constant for three-step Adams-Bashforth is $\frac{3}{8}$.
+	
+	2-step Adams-Moulton: $y_{n+1} = y_{n} + h\pa{ \frac{1}{2}f(t_{n+1}, y_{n+1}) + \frac{1}{2}f(t_{n}, y_{n})}$
+	\[
+	\rho(w) = w - 1,\quad \sigma(w) = \frac{1}{2}w + \frac{1}{2}
+	\]
+	Let $x=w-1$,
+	\begin{align*}
+	\rho(w) - \sigma(w) \ln{w}
+	&= x - \pa{\frac{1}{2}x + 1} \pa{x-\frac{1}{2}x^2 + \frac{1}{3}x^3 + \cdots}\\
+	&= -\frac{1}{12}x^3 + O(x^4)
+	\end{align*}
+	Therefore the error constant for two-step Adams-Moulton is $-\frac{1}{12}$.
+	
+	3-step Adams-Moulton: $y_{n+2} = y_{n+1} + h\pa{ \frac{5}{12}f(t_{n+2}, y_{n+2}) + \frac{2}{3}f(t_{n+1}, y_{n+1}) - \frac{1}{12}f(t_{n}, y_{n})}$
+	\[
+	\rho(w) = w^2 - w,\quad \sigma(w) = \frac{5}{12}w^2 + \frac{2}{3}w - \frac{1}{12}
+	\]
+	Let $x=w-1$,
+	\begin{align*}
+	\rho(w) - \sigma(w) \ln{w}
+	&= x(x+1) - \pa{\frac{5}{12}x^2 + \frac{3}{2}x + 1} \pa{x-\frac{1}{2}x^2 + \frac{1}{3}x^3 + \cdots}\\
+	&= -\frac{1}{24}x^4 + O(x^5)
+	\end{align*}
+	Therefore the error constant for three-step Adams-Bashforth is $-\frac{1}{24}$.
+	
 	\item 
-	(Problem 6.2) Prove that the error constant of the s-step backward differentiation formula is $-\beta/(s + 1)$, where $\beta$ was defined in (2.14).
+	(Problem 6.2) Prove that the error constant of the $s$-step backward differentiation formula is $-\beta/(s + 1)$, where $\beta$ was defined in (2.14).
+	
+	For a BDF, we have
+	\[
+	\rho(w) = \beta \sum_{m=1}^{s} \frac{1}{m} w^{s-m} (w-1)^m,\quad \sigma(w) = \beta w^s
+	\]
+	Let $x = w - 1$,
+	\begin{align*}
+		\rho(w) - \sigma(w) \ln{w}
+		&= \beta \sum_{m=1}^{s} \frac{1}{m} w^{s-m} (w-1)^m - \beta w^s \ln{w}\\
+		&= \beta \pa{\sum_{m=1}^{s} \frac{1}{m} (x+1)^{s-m} x^m - (x+1)^s (x-\frac{1}{2}x^2 + \frac{1}{3}x^3 - \frac{1}{4}x^4 + \cdots)}
+	\end{align*}
+	Since $s$-step BDF is of order $s$, the terms $x^k, k=1,2,\dots,s$ on the RHS cancel out. The error constant equals the coefficient for $x^{s+1}$, which is
+	\[
+	-\sum_{k=0}^{s}\binom{s}{k} \frac{(-1)^k}{k+1} = -\frac{1}{s+1}
+	\]
+	Then we have
+	\[
+	\rho(w) - \sigma(w) \ln{w} = -\frac{\beta}{s+1}(w-1)^{s+1} + O(\abs{w-1}^{s+2})
+	\]
+	Therefore the error constant of the $s$-step backward differentiation formula is $-\beta/(s + 1)$.
 	
 	\item 
 	(Problem 6.4) Prove that the embedded RK pair
@@ -110,6 +166,39 @@
 	\end{array}
 	\]
 	combines a second-order and a third-order method.
+	
+	For the tableau of RK2,
+	\begin{align*}
+		y(t_{n+1})
+		&= y(t_n + h)\\
+		&= y(t_n) + hy'(t_n) + \frac{1}{2}h^2y''(t_n) + O(h^3)\\
+		&= y(t_n) + hf + \frac{1}{2}h^2(f_t + f_y f) + O(h^3)\\
+		y_{n+1} 
+		&= y_n + hf\pa{t_n + \frac{1}{2}h, y_n + \frac{1}{2}hf}\\
+		&= y(t_n) + h(f + \frac{1}{2}hf_t + \frac{1}{2}hf_yf + O(h^2))\\
+		&= y(t_n) + hf + \frac{1}{2}h^2(f_t + f_y f) + O(h^3)
+	\end{align*}
+	Therefore the RK2 method is second-order.
+	For the tableau of RK3, consider $y'=f(y)$ and we have
+	\begin{align*}
+	y(t_{n+1})
+	&= y(t_n + h)\\
+	&= y(t_n) + hy'(t_n) + \frac{1}{2}h^2y''(t_n) + \frac{1}{6}h^3y'''(t_n) + O(h^4)\\
+	&= y(t_n) + hf + \frac{1}{2}h^2f_y f + \frac{1}{6}h^3\pa{f_{yy}f^2 + f_y^2f} + O(h^4)\\
+	k_1 
+	&= f\\
+	k_2
+	&= f(y_n + \frac{1}{2}hf)\\
+	&= f + \frac{1}{2}h f_y f + \frac{1}{8}h^2 f_{yy} f^2 + O(h^3)\\
+	k_3
+	&= f\pa{y_n - hf + 2h\pa{f + \frac{1}{2}h f_y f + \frac{1}{8}h^2 f_{yy} f^2 + O(h^3)}}\\
+	&= f\pa{y_n + hf + h^2f_yf + O(h^3)}\\
+	&= f+hf_yf + h^2 f_y^2 f + \frac{1}{2}h^2 f_{yy}f^2 + O(h^3)\\
+	y_{n+1}
+	&= y_n + h\pa{\frac{1}{6}f + \frac{2}{3}\pa{f + \frac{1}{2}h f_y f + \frac{1}{8}h^2 f_{yy} f^2 + O(h^3)} + \frac{1}{6}\pa{f+hf_yf + h^2 f_y^2 f + \frac{1}{2}h^2 f_{yy}f^2 + O(h^3)}}\\
+	&= y(t_n) + hf + \frac{1}{2}h^2f_y f + \frac{1}{6}h^3\pa{f_{yy}f^2 + f_y^2f} + O(h^4)
+	\end{align*}
+	Therefore the RK3 method is third-order. Hence the embedded RK pair combines a second-order and a third-order method.
 \end{enumerate}
 
 \section*{Computer Assignment}
