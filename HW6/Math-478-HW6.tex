@@ -106,19 +106,7 @@
 	\end{align*}
 	Therefore the error constant for three-step Adams-Bashforth is $\frac{3}{8}$.
 	
-	2-step Adams-Moulton: $y_{n+1} = y_{n} + h\pa{ \frac{1}{2}f(t_{n+1}, y_{n+1}) + \frac{1}{2}f(t_{n}, y_{n})}$
-	\[
-	\rho(w) = w - 1,\quad \sigma(w) = \frac{1}{2}w + \frac{1}{2}
-	\]
-	Let $x=w-1$,
-	\begin{align*}
-	\rho(w) - \sigma(w) \ln{w}
-	&= x - \pa{\frac{1}{2}x + 1} \pa{x-\frac{1}{2}x^2 + \frac{1}{3}x^3 + \cdots}\\
-	&= -\frac{1}{12}x^3 + O(x^4)
-	\end{align*}
-	Therefore the error constant for two-step Adams-Moulton is $-\frac{1}{12}$.
-	
-	3-step Adams-Moulton: $y_{n+2} = y_{n+1} + h\pa{ \frac{5}{12}f(t_{n+2}, y_{n+2}) + \frac{2}{3}f(t_{n+1}, y_{n+1}) - \frac{1}{12}f(t_{n}, y_{n})}$
+	2-step Adams-Moulton: $y_{n+2} = y_{n+1} + h\pa{ \frac{5}{12}f(t_{n+2}, y_{n+2}) + \frac{2}{3}f(t_{n+1}, y_{n+1}) - \frac{1}{12}f(t_{n}, y_{n})}$
 	\[
 	\rho(w) = w^2 - w,\quad \sigma(w) = \frac{5}{12}w^2 + \frac{2}{3}w - \frac{1}{12}
 	\]
@@ -129,7 +117,20 @@
 	&= -\frac{1}{24}x^4 + O(x^5)
 	\end{align*}
 	Therefore the error constant for three-step Adams-Bashforth is $-\frac{1}{24}$.
-	
+
+	3-step Adams-Moulton: $y_{n+3} = y_{n+2} + h( \frac{3}{8}f(t_{n+3}, y_{n+3}) + \frac{19}{24}f(t_{n+2}, y_{n+2}) - \frac{5}{24}f(t_{n+1}, y_{n+1})$\\
+	$ + \frac{1}{24}f(t_{n}, y_{n})$
+	\[
+	\rho(w) = w^3 - w^2,\quad \sigma(w) = \frac{3}{8}w^3 + \frac{19}{24}w^2 - \frac{5}{24}w + \frac{1}{24}
+	\]
+	Let $x=w-1$,
+	\begin{align*}
+	\rho(w) - \sigma(w) \ln{w}
+	&= (x^3 + 2x^2 + x) - \pa{\frac{3}{8}x^3 + \frac{23}{12}x^2 + \frac{5}{2}x + 1} \pa{x-\frac{1}{2}x^2 + \frac{1}{3}x^3 + \cdots}\\
+	&= -\frac{19}{720}x^5 + O(x^6)
+	\end{align*}
+	Therefore the error constant for three-step Adams-Moulton is $-\frac{19}{720}$.
+		
 	\item 
 	(Problem 6.2) Prove that the error constant of the $s$-step backward differentiation formula is $-\beta/(s + 1)$, where $\beta$ was defined in (2.14).
 	
