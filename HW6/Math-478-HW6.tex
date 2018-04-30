@@ -40,7 +40,7 @@
 \setlength{\textwidth}{6.5in}
 
 %Title page
-\newcommand{\hwTitle}{Homework \#5}
+\newcommand{\hwTitle}{Homework \#6}
 \newcommand{\hwCourse}{Numerical Differential Equations/Computational Mathematics II}
 \newcommand{\hmwkClassInstructor}{Professor Shuwang Li}
 
@@ -59,7 +59,7 @@
 \pagestyle{fancy}
 \fancyhead[L]{Zhihao Ai}
 \fancyhead[C]{Math 478}
-\fancyhead[R]{Homework 5}
+\fancyhead[R]{Homework 6}
 %%%%%%
 
 %Global setting.
@@ -204,17 +204,63 @@
 \section*{Computer Assignment}
 Consider a linear BVP: $y'' = y - x$ on $0<x<1$ and $y(0)=0, y(1)=0$. The exact solution to this problem is $y(x) = x + \frac{e}{e^2-1}(e^{-x}-e^x)$.
 \begin{enumerate}
-	\item 
-	Implement the linear shooting method to solve the problem using 10 subintervals. compute the numerical errors for each node point.
+	\item [(a)]
+	Implement the linear shooting method to solve the problem using 10 subintervals. Compute the numerical errors for each node point.
+	\lstinputlisting{shooting.m}
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{*{4}{N}} 
+			\toprule
+			x & u(x) & y(x) & \abs{u(x)-y(x)}\\ \midrule
+			0.0 & 0.000000 & 0.000000 & 0.000000\\
+			0.1 & 0.017353 & 0.014766 & 0.002587\\
+			0.2 & 0.033704 & 0.028680 & 0.005025\\
+			0.3 & 0.048040 & 0.040878 & 0.007162\\
+			0.4 & 0.059328 & 0.050483 & 0.008845\\
+			0.5 & 0.066505 & 0.056591 & 0.009915\\
+			0.6 & 0.068467 & 0.058260 & 0.010207\\
+			0.7 & 0.064057 & 0.054507 & 0.009550\\
+			0.8 & 0.052055 & 0.044295 & 0.007760\\
+			0.9 & 0.031164 & 0.026518 & 0.004646\\
+			1.0 & 0.000000 & 0.000000 & 0.000000\\
+			\bottomrule
+		\end{tabular}
+		\caption*{Numerical errors for shooting method}
+	\end{table}
 	
-	\item 
-	Implement the finite difference method to solve the problem using 10 subintervals. compute the numerical errors for each node point.
-	
-	\item 
+	\item [(b)]
+	Implement the finite difference method to solve the problem using 10 subintervals. Compute the numerical errors for each node point.
+	\lstinputlisting{fd.m}
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{*{4}{N}} 
+			\toprule
+			x & u(x) & y(x) & \abs{u(x)-y(x)}\\ \midrule
+			0.0 & 0.000000 & 0.000000 & 0.000000\\
+			0.1 & 0.014755 & 0.014766 & 0.000011\\
+			0.2 & 0.028658 & 0.028680 & 0.000021\\
+			0.3 & 0.040848 & 0.040878 & 0.000031\\
+			0.4 & 0.050446 & 0.050483 & 0.000038\\
+			0.5 & 0.056548 & 0.056591 & 0.000043\\
+			0.6 & 0.058216 & 0.058260 & 0.000044\\
+			0.7 & 0.054466 & 0.054507 & 0.000042\\
+			0.8 & 0.044260 & 0.044295 & 0.000034\\
+			0.9 & 0.026498 & 0.026518 & 0.000021\\
+			1.0 & 0.000000 & 0.000000 & 0.000000\\
+			\bottomrule
+		\end{tabular}
+		\caption*{Numerical errors for finite difference method}
+	\end{table}
+
+	\item [(c)]
 	Comment on what you get in (a) and (b).
 	
-	\item 
+	The numerical errors of the finite difference method are much smaller than those of the shooting method. Besides, in this case, less computation is required for finite difference method than that for shooting method.
+	
+	\item [(d)]
 	Suppose we are solving a nonlinear BVP, what changes are you going to make to the routines you developed in (a) and (b)?
+	
+	For shooting method, we will need to use iterations like secant method or Newton's method to get the correct initial slope. Finite difference method also needs a great amount of iterations to solve the equations.
 \end{enumerate}
 
 \end{document}
